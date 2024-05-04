@@ -3,10 +3,12 @@ from prompt_toolkit import HTML as html
 from prompt_toolkit import print_formatted_text as pft
 from prompt_toolkit.styles import Style
 import functions as f
+import prefabs as p
 from prompt_toolkit.cursor_shapes import CursorShape, ModalCursorShapeConfig
 import os
 
 key = True
+'''
 style = Style.from_dict({
     "head":"#ffffff",
     "startsign":"#44cef6",
@@ -15,8 +17,10 @@ style = Style.from_dict({
     "paragraph":"#00bc12",
     "word":"#f36838"
 })
+'''
+style = Style.from_dict(f.preload(0))
 
-default = "./folder"
+default = f.preload(1)
 if not os.path.exists(default):
     os.makedirs(default)
 
@@ -32,9 +36,9 @@ while key:
     if res[0] == "write":
       f.writeline(str(file))
     if res[0] == "display":
-       f.display()
+       f.display(file)
     if res[0]=="clear":
-       f.clear()
+       f.clear(file)
     if res[0]=="change":
         if len(res) != 2:
            pft(html("<b><notice>[AFW] Invalid command.</notice></b>"),style=style)
@@ -47,6 +51,12 @@ while key:
 
     if res[0]=="create" or res[0]=="new":
         f.create(default)
+
+    if res[0]=="open":
+       if len(res) != 2:
+          pft(html(p.LackParamAlert(0)),style=style)
+        
+       
 '''
     if res[0]=="Stop" or "S":
         break

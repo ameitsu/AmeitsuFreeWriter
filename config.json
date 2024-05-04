@@ -1,0 +1,14 @@
+{
+    "color-scheme":{
+        "head":"#ffffff",
+    "startsign":"#44cef6",
+    "notice":"#ff2d51",
+    "right":"#ffffff bg:#ff4777",
+    "paragraph":"#00bc12",
+    "word":"#f36838"
+    },
+
+    "route": "./folder",
+
+    "version":"Ameitsu FreeWriter Alpha-2"
+}

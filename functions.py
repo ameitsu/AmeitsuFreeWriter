@@ -4,6 +4,7 @@ from prompt_toolkit import print_formatted_text as pft
 from prompt_toolkit.styles import Style
 from prompt_toolkit.shortcuts import input_dialog
 import os
+import json
 
 style = Style.from_dict({
      "head":"#ffffff",
@@ -14,18 +15,18 @@ style = Style.from_dict({
     "word":"#f36838"
 })
 
-def writeline(file):
+def writeline(filename):
     pft(html("<success>[AFE] Enter writing mode now.</success>"),style=style)
     while True:
-        content = prompt(html("<startsign> <b>>>> </b></startsign>".format(file)),style=style)
-        file = open(file,"a")
+        content = prompt(html("<startsign> <b>>>> </b></startsign>".format(filename)),style=style)
+        file = open(filename,"a")
         if content == "\e":
             break
         file.write(content+"\n")
         file.close()
 
-def display():
-    file = open("paper","r")
+def display(filename):
+    file = open(filename,"r")
     content = []
     for lines in file.readlines():
         line = lines.strip()
@@ -33,13 +34,13 @@ def display():
         print(line)
     if len(content)==0:
 
-        pft(html("<notice>[AFE] Nothing here now.</notice>"),style=style)
+        pft(html("<notice>[AFW] Nothing here now.</notice>"),style=style)
     file.close()
 
-def clear():
-    file = open("paper","w+")
+def clear(filename):
+    file = open(filename,"w+")
     file.close()
-    pft(html("<notice>[AFE] Cleared paper.</notice>"),style=style)
+    pft(html("<notice>[AFW] Cleared paper '{0}'.</notice>".format(filename)),style=style)
 
 '''
 def repdel():
@@ -77,3 +78,13 @@ def smash():
 
 def email():
     pass
+
+def preload(flag):
+    with open('config.json', 'r') as f:
+        data = json.load(f)
+    
+    if flag == 0:
+        return data["color-scheme"]
+    elif flag==1:
+        return data["route"]
+
